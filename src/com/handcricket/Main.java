@@ -7,14 +7,14 @@ public class Main {
 	
 	public static void main(String args[]) {
 		
-		int userScore;
-		userScore = playInnings("Batting");
+		int userScore, cpuScore;
+		userScore = playInnings("firstInnings", "user", -1);
 		System.out.println("User Score:" + userScore);
+		cpuScore = playInnings("secondInnings", "CPU", userScore);
+		System.out.println("CPU Score:" + cpuScore);
 	}
-	
-
-	
-	public static int playInnings(String currentRound) {
+		
+	public static int playInnings(String innings, String playerType, int firstInningsScore) {
 		
 		Scanner sc = new Scanner(System.in);
 		String input;
@@ -23,9 +23,15 @@ public class Main {
 		int cpuInput;
 		int userInput;
 		System.out.println("Aarambikaangala??");
+		//if (sc.hasNextLine()) {			
+			input = sc.nextLine();		
+	//	}
 		do {
 			System.out.println("Enter your input:");
-			input = sc.nextLine();		
+			//input = "";
+			//if (sc.hasNextLine()) {			
+				input = sc.nextLine();		
+			//}	
 			try {
 				if (!(input.toLowerCase().equals("exit"))) {
 					cpuInput = rand.nextInt(7);
@@ -35,12 +41,31 @@ public class Main {
 					if (!(userInput > 0 && userInput < 7)) {
 						throw new Exception("Invalid input");
 					}
+					
 					if(cpuInput == userInput) {
 						System.out.println("OUT!!!!");
+						if (innings.equals("secondInnings") && (playerType.equals("CPU"))) {
+							System.out.println("User won!!!!");
+						}
+						if (innings.equals("secondInnings") && (playerType.equals("user")) ) {
+							System.out.println("CPU won!!!!");
+						}
 						input = "exit";
 					}
 					else {
-						score += userInput;
+						if (playerType.equals("user")) {							
+							score += userInput;
+						} else {
+							score +=cpuInput;
+						}
+						
+						if(innings.equals("secondInnings") && playerType.equals("user") && score > firstInningsScore) {
+							System.out.println("user won!!!");
+							input = "exit";
+						}
+						if(innings.equals("secondInnings") && playerType.equals("CPU") && score > firstInningsScore) {
+							System.out.println("CPU won!!!");
+						}
 					}
 					System.out.println("Current score:" + score);					
 				}
@@ -57,4 +82,5 @@ public class Main {
 		sc.close();			
 		return score;
 	}
+	
 }

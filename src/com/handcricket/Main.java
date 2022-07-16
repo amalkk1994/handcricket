@@ -8,23 +8,26 @@ public class Main {
 	public static void main(String args[]) {
 		
 		int userScore, cpuScore;
-		userScore = playInnings("firstInnings", "user", -1);
+		Scanner sc = new Scanner(System.in);
+		userScore = playInnings(sc, "firstInnings", "user", -1);
 		System.out.println("User Score:" + userScore);
-		cpuScore = playInnings("secondInnings", "CPU", userScore);
+		cpuScore = playInnings(sc, "secondInnings", "CPU", userScore);
 		System.out.println("CPU Score:" + cpuScore);
+		System.out.println("User Score:" + userScore);
+		sc.close(); // scanner should be closed only at then end of the program.
 	}
 		
-	public static int playInnings(String innings, String playerType, int firstInningsScore) {
+	public static int playInnings(Scanner sc, String innings, String playerType, int firstInningsScore) {
 		
-		Scanner sc = new Scanner(System.in);
 		String input;
 		Random rand = new Random();
 		int score = 0;
 		int cpuInput;
 		int userInput;
-		System.out.println("Aarambikaangala??");
+		//System.out.println("Aarambikaangala??");
+		System.out.println(innings);
 		//if (sc.hasNextLine()) {			
-			input = sc.nextLine();		
+		//	input = sc.nextLine();		
 	//	}
 		do {
 			System.out.println("Enter your input:");
@@ -65,6 +68,7 @@ public class Main {
 						}
 						if(innings.equals("secondInnings") && playerType.equals("CPU") && score > firstInningsScore) {
 							System.out.println("CPU won!!!");
+							input = "exit";
 						}
 					}
 					System.out.println("Current score:" + score);					
@@ -79,7 +83,7 @@ public class Main {
 		
 		System.out.println("Final Score:" + score);
 		System.out.println("Exiting....");
-		sc.close();			
+		//sc.close();			
 		return score;
 	}
 	
